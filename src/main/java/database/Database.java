@@ -166,6 +166,8 @@ public class Database {
     }
 
     private void save() throws IOException {
+        if (filePath == null) return;
+
         FileWriter writer = new FileWriter(filePath);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         gson.toJson(this, writer);

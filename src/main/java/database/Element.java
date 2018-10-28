@@ -34,8 +34,9 @@ public class Element {
     }
 
     public String getAsStringRange() throws Exception {
-        String[] match = Regex.match(value, "([^\\s]+)\\s\\.\\.\\.\\s([^\\s]+)");
+        String[] match = Regex.match(value, "([^\\s]+)\\.\\.\\.([^\\s]+)");
         if (match == null) throw new Exception("Invalid string range value");
+        if (match[0].length() != match[1].length()) throw new Exception("The two strings must have the same length to form a range");
         if (match[0].compareTo(match[1]) > 0) throw new Exception("The two strings must be lexicographically in order to form a range");
         return value;
     }
@@ -49,7 +50,7 @@ public class Element {
     }
 
     public LocalTime[] getAsTimeRange() throws Exception {
-        String[] match = Regex.match(value, "([^\\s]+)\\s\\.\\.\\.\\s([^\\s]+)");
+        String[] match = Regex.match(value, "([^\\s]+)\\.\\.\\.([^\\s]+)");
         if (match == null) throw new Exception("Invalid time range value");
 
         LocalTime start = LocalTime.parse(match[0]);
@@ -80,15 +81,19 @@ public class Element {
             throw new Exception("Null value is not allowed");
         }
 
-        switch (column.getType()) {
-            case INT: getAsInteger(); break;
-            case FLOAT: getAsFloat(); break;
-            case CHAR: getAsCharacter(); break;
-            case STR: getAsString(); break;
-            case STR_RANGE: getAsStringRange(); break;
-            case HTML: getAsHTML(); break;
-            case TIME: getAsTime(); break;
-            case TIME_RANGE: getAsTimeRange(); break;
+        try {
+            switch (column.getType()) {
+                case INT: getAsInteger(); break;
+                case FLOAT: getAsFloat(); break;
+                case CHAR: getAsCharacter(); break;
+                case STR: getAsString(); break;
+                case STR_RANGE: getAsStringRange(); break;
+                case HTML: getAsHTML(); break;
+                case TIME: getAsTime(); break;
+                case TIME_RANGE: getAsTimeRange(); break;
+            }
+        } catch (Exception e) {
+            throw new Exception(String.format("Invalid element value '%s': %s", value, e.getMessage()));
         }
     }
 

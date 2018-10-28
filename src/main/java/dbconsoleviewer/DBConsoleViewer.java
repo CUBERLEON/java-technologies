@@ -2,6 +2,7 @@ package dbconsoleviewer;
 
 import database.*;
 
+import java.time.LocalTime;
 import java.util.Scanner;
 
 public class DBConsoleViewer {
@@ -46,14 +47,14 @@ public class DBConsoleViewer {
         }
 
         for (Element element : result.getRows().iterator().next().getElements()) {
-            System.out.print(String.format("%10s", element.getColumn()));
+            System.out.print(String.format("%15s", element.getColumn()));
         }
         System.out.println();
         System.out.println();
 
         for (Row row : result.getRows()) {
             for (Element element : row.getElements()) {
-                System.out.print(String.format("%10s", element.getAsString()));
+                System.out.print(String.format("%15s", element.getAsString()));
             }
             System.out.println();
         }

@@ -4,7 +4,7 @@ public enum QueryRegex {
     DELETE_ROWS("^\\s*DELETE\\s+FROM\\s+([^\\s]+)(?:\\s+WHERE\\s+([^\\s]+))?\\s*$"),
     INSERT_ROW("^\\s*INSERT\\s+INTO\\s+([^\\s]+)\\s+\\(([^\\)]+)\\)\\s+VALUES\\s*\\(([^\\)]+)\\)s*$"),
     UPDATE_ROWS("^\\s*UPDATE\\s+([^\\s]+)\\s+SET\\s*([^\\s]+)(?:\\s+WHERE\\s+([^\\s]+))?\\s*$"),
-    SELECT_ROWS("^\\s*SELECT\\s+([^\\s]+)\\s+FROM\\s+([^\\s]+)(?:\\s+WHERE\\s+([^\\s]+))?\\s*$"),
+    SELECT_ROWS("^\\s*SELECT\\s+(.+)\\s+FROM\\s+([^\\s]+)(?:\\s+WHERE\\s+([^\\s]+))?\\s*$"),
 
     CREATE_TABLE("^\\s*CREATE\\s+TABLE\\s+([^\\s]+)\\s+\\(([^\\)]+)\\)\\s*$"),
     DROP_TABLE("^\\s*DROP\\s+TABLE\\s+([^\\s]+)\\s*$"),

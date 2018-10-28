@@ -8,63 +8,9 @@ repositories {
     mavenCentral()
 }
 
-apply plugin: 'antlr'
-
 dependencies {
-    antlr "org.antlr:antlr4:4.7.1"
-    compile "org.antlr:antlr4-runtime:4.7.1"
     compile group: 'me.soliveirajr', name: 'menta-regex', version: '0.9.5'
     compile 'org.jsoup:jsoup:1.11.3'
     implementation 'com.google.code.gson:gson:2.8.5'
-    testCompile group: 'org.junit', name: 'junit-bom', version: '5.3.1'
-}
-
-generateGrammarSource {
-    maxHeapSize = "64m"
-    arguments += ['-package', 'main.java.database']
-    source("resources/Chat.g4")
-    outputDirectory = new File("generated-src/antlr/main/java/database/ChatParser".toString())
-}
-compileJava.dependsOn generateGrammarSource
-sourceSets {
-    generated {
-        java.srcDir 'generated-src/antlr/main/'
-    }
-}
-compileJava.source sourceSets.generated.java, sourceSets.main.java
-
-apply plugin: 'idea'
-
-idea {
-    module {
-        sourceDirs += file("generated-src/antlr/main")
-    }
-}
-
-clean {
-    delete "generated-src"
-}
-
-apply plugin: 'javafx-gradle-plugin'
-
-buildscript {
-    dependencies {
-        classpath group: 'de.dynamicfiles.projects.gradle.plugins', name: 'javafx-gradle-plugin', version: '8.8.2'
-    }
-    repositories {
-        mavenLocal()
-        mavenCentral()
-    }
-}
-
-jfx {
-    verbose = true
-    useEnvironmentRelativeExecutables = true
-    // minimal requirement for jfxJar-task
-    mainClass = 'dbviewer.DBViewer'
-
-    // minimal requirement for jfxNative-task
-    vendor = 'Liu'
-
-//    runJavaParameter = '-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005'
+    testCompile 'org.junit.jupiter:junit-jupiter-api:5.1.0'
 }
