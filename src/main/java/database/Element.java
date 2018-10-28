@@ -4,10 +4,11 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.mentaregex.Regex;
 
+import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.Objects;
 
-public class Element {
+public class Element implements Serializable {
     private String value;
     private String column;
 

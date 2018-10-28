@@ -2,7 +2,6 @@ package dbconsoleviewer;
 
 import database.*;
 
-import java.time.LocalTime;
 import java.util.Scanner;
 
 public class DBConsoleViewer {
@@ -19,17 +18,17 @@ public class DBConsoleViewer {
         }
 
         while (true) {
-            processCommand();
+            System.out.print("> ");
+            Scanner scanner = new Scanner(System.in);
+            String command = scanner.nextLine();
+
+            Result result = database.query(command);
+
+            processResult(result);
         }
     }
 
-    public static void processCommand() {
-        System.out.print("> ");
-        Scanner scanner = new Scanner(System.in);
-        String command = scanner.nextLine();
-
-        Result result = database.query(command);
-
+    public static void processResult(Result result) {
         if (result.getStatus() == Result.Status.FAIL) {
             System.out.println("FAIL");
             System.out.println(result.getReport());

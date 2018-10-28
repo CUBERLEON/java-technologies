@@ -1,11 +1,12 @@
 package database;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class Row {
+public class Row implements Serializable {
     private Map<String, Element> elements;
 
     Row(Collection<Element> elements) {

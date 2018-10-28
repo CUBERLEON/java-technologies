@@ -1,8 +1,9 @@
 package database;
 
+import java.io.Serializable;
 import java.util.Collection;
 
-public class Result {
+public class Result implements Serializable {
     public enum Status {
         OK,
         FAIL
