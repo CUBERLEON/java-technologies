@@ -1,5 +1,6 @@
 package database;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.mentaregex.Regex;
@@ -17,23 +18,28 @@ public class Element implements Serializable {
         this.column = column;
     }
 
+    @JsonIgnore
     public Integer getAsInteger() {
         return Integer.parseInt(value);
     }
 
+    @JsonIgnore
     public Float getAsFloat() {
         return Float.parseFloat(value);
     }
 
+    @JsonIgnore
     public char getAsCharacter() throws Exception {
         if (value.length() != 1) throw new Exception("Invalid character value");
         return value.charAt(0);
     }
 
+    @JsonIgnore
     public String getAsString() {
         return value;
     }
 
+    @JsonIgnore
     public String getAsStringRange() throws Exception {
         String[] match = Regex.match(value, "([^\\s]+)\\.\\.\\.([^\\s]+)");
         if (match == null) throw new Exception("Invalid string range value");
@@ -42,14 +48,17 @@ public class Element implements Serializable {
         return value;
     }
 
+    @JsonIgnore
     public Document getAsHTML() {
         return Jsoup.parse(value);
     }
 
+    @JsonIgnore
     public LocalTime getAsTime() {
         return LocalTime.parse(value);
     }
 
+    @JsonIgnore
     public LocalTime[] getAsTimeRange() throws Exception {
         String[] match = Regex.match(value, "([^\\s]+)\\.\\.\\.([^\\s]+)");
         if (match == null) throw new Exception("Invalid time range value");
