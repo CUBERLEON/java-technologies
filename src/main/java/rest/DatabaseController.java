@@ -40,4 +40,11 @@ public class DatabaseController {
     public Result createTable(@RequestParam(name = "columns") String columns, @RequestParam(name = "table") String tableName) {
         return database.query(String.format("create table %s (%s)", tableName, columns));
     }
+
+    @RequestMapping(value = "/select", method = RequestMethod.GET)
+    public Result createTable(@RequestParam(name = "columns") String columns, @RequestParam(name = "table") String tableName, @RequestParam(name = "condition", defaultValue = "") String condition) {
+        String query = String.format("select %s from %s", columns, tableName, columns);
+        if (!condition.isEmpty()) query += String.format(" where %s", condition);
+        return database.query(query);
+    }
 }
