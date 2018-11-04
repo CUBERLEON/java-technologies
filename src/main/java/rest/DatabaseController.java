@@ -1,9 +1,5 @@
 package rest;
 
-import java.util.concurrent.atomic.AtomicLong;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import database.Database;
 import database.DatabaseReader;
 import database.Result;
@@ -33,18 +29,42 @@ public class DatabaseController {
 
     @RequestMapping(value = "/drop_table", method = RequestMethod.DELETE)
     public Result dropTable(@RequestParam(name = "table") String tableName) {
-        return database.query(String.format("drop table", tableName));
+        return database.query(String.format("drop table %s", tableName));
     }
 
     @RequestMapping(value = "/create_table", method = RequestMethod.POST)
-    public Result createTable(@RequestParam(name = "columns") String columns, @RequestParam(name = "table") String tableName) {
+    public Result createTable(@RequestParam(name = "columns") String columns,
+                              @RequestParam(name = "table") String tableName) {
         return database.query(String.format("create table %s (%s)", tableName, columns));
     }
 
     @RequestMapping(value = "/select", method = RequestMethod.GET)
-    public Result createTable(@RequestParam(name = "columns") String columns, @RequestParam(name = "table") String tableName, @RequestParam(name = "condition", defaultValue = "") String condition) {
+    public Result createTable(@RequestParam(name = "columns") String columns,
+                              @RequestParam(name = "table") String tableName,
+                              @RequestParam(name = "condition", defaultValue = "") String condition) {
         String query = String.format("select %s from %s", columns, tableName, columns);
         if (!condition.isEmpty()) query += String.format(" where %s", condition);
+        return database.query(query);
+    }
+
+    @RequestMapping(value = "/insert", method = RequestMethod.POST)
+    public Result insert(@RequestParam(name = "columns") String columns,
+                         @RequestParam(name = "table") String tableName,
+                         @RequestParam(name = "values") String values) {
+        String query = String.format("insert into %s (%s) values (%s)", tableName, columns, values);
+        return database.query(query);
+    }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+    public Result delete(@RequestParam(name = "table") String tableName,
+                         @RequestParam(name = "condition") String condition) {
+        String query = String.format("delete from %s where %s", tableName, condition);
+        return database.query(query);
+    }
+
+    @RequestMapping(value = "/delete_duplicates", method = RequestMethod.DELETE)
+    public Result deleteDuplicates(@RequestParam(name = "table") String tableName) {
+        String query = String.format("delete duplicates %s", tableName);
         return database.query(query);
     }
 }
