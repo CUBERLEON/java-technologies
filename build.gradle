@@ -24,7 +24,9 @@ dependencies {
     compile group: 'me.soliveirajr', name: 'menta-regex', version: '0.9.5'
     compile 'org.jsoup:jsoup:1.11.3'
     compile("org.springframework.boot:spring-boot-starter-web")
-    implementation 'com.google.code.gson:gson:2.8.5'
+    compile("org.springframework.boot:spring-boot-starter-thymeleaf")
+    compile("org.springframework.boot:spring-boot-devtools")
+    implementation group: 'com.google.code.gson', name: 'gson', version: '2.7'
     testCompile 'org.junit.jupiter:junit-jupiter-api:5.1.0'
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
